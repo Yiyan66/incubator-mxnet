@@ -25,9 +25,9 @@ _bin_logic_op_map = {
     'less': lambda a, b, *idx: a[idx] < b[idx],
     'greater_equal': lambda a, b, *idx: a[idx] >= b[idx],
     'less_equal': lambda a, b, *idx: a[idx] <= b[idx],
-    'logical_and': lambda a, b, *idx: tvm.all(a,b),
-    'logical_or': lambda a, b, *idx: tvm.any(a,b),
-    'logical_xor': lambda a, b, *idx: tvm.all(tvm.any(a,b),tvm.any(a==0,b==0)),
+    'logical_and': lambda a, b, *idx: tvm.all(a[idx],b[idx]),
+    'logical_or': lambda a, b, *idx: tvm.any(a[idx],b[idx]),
+    'logical_xor': lambda a, b, *idx: tvm.all(tvm.any(a[idx],b[idx]),tvm.any(a[idx]==0,b[idx]==0)),
 }
 
 
@@ -90,9 +90,9 @@ _bin_scalar_logic_op_map = {
     'less_scalar': lambda a, b, *idx: a[idx].astype(b.dtype) < b,
     'greater_equal_scalar': lambda a, b, *idx: a[idx].astype(b.dtype) >= b,
     'less_equal_scalar': lambda a, b, *idx: a[idx].astype(b.dtype) <= b,
-    'logical_and_scalar': lambda a, b, *idx: tvm.all(a.astype(b.dtype),b),
-    'logical_or_scalar': lambda a, b, *idx: tvm.any(a.astype(b.dtype),b),
-    'logical_xor_scalar': lambda a, b, *idx: tvm.all(tvm.any(a.astype(b.dtype),b),tvm.any(a.astype(b.dtype)==0,b==0)),
+    'logical_and_scalar': lambda a, b, *idx: tvm.all(a[idx].astype(b.dtype),b[idx]),
+    'logical_or_scalar': lambda a, b, *idx: tvm.any(a[idx].astype(b.dtype),b[idx]),
+    'logical_xor_scalar': lambda a, b, *idx: tvm.all(tvm.any(a[idx].astype(b.dtype),b[idx]),tvm.any(a[idx].astype(b.dtype)==0,b[idx]==0)),
 }
 
 
