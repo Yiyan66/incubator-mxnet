@@ -47,8 +47,9 @@ __all__ = ['zeros', 'zeros_like', 'ones', 'ones_like', 'full_like', 'bitwise_not
            'argmax', 'argmin', 'std', 'var', 'indices', 'copysign', 'ravel', 'unravel_index', 'hanning', 'hamming',
            'blackman', 'flip', 'around', 'round', 'hypot', 'bitwise_xor', 'bitwise_or', 'rad2deg', 'deg2rad',
            'unique', 'lcm', 'tril', 'identity', 'take', 'ldexp', 'vdot', 'inner', 'outer', 'equal', 'not_equal',
-           'greater', 'less', 'greater_equal', 'less_equal', 'hsplit', 'rot90', 'einsum', 'true_divide',
-           'shares_memory', 'may_share_memory', 'diff', 'resize', 'nan_to_num', 'where', 'bincount']
+           'greater', 'less', 'greater_equal', 'less_equal', 'logical_and', 'logical_or', 'logical_xor', 'hsplit',
+           'rot90', 'einsum', 'true_divide', 'shares_memory', 'may_share_memory', 'diff', 'resize', 'nan_to_num',
+           'where', 'bincount']
 
 
 @set_module('mxnet.symbol.numpy')
