@@ -1930,7 +1930,8 @@ def test_np_binary_funcs():
 
         np_func = getattr(_np, func)
         mx_func = TestBinary(func)
-        alltypes = alltypes if alltypes else [[_np.float16, _np.float32, _np.float64]]
+        alltypes = alltypes if alltypes else [[_np.float32, _np.float64]]
+        alltypes = alltypes if has_tvm_ops() else [[_np.float16, _np.float32, _np.float64]]
         for dtypes, lgrad, rgrad in zip(alltypes, lgrads, rgrads if rgrads else lgrads):
             for dtype in dtypes:
                 ldtype = rdtype = dtype
