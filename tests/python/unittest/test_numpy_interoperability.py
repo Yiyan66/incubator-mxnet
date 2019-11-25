@@ -40,7 +40,10 @@ _TVM_OPS = [
     'less',
     'less_equal',
     'greater',
-    'greater_equal'
+    'greater_equal',
+    'logical_and',
+    'logical_or',
+    'logical_xor',
 ]
 
 
@@ -1456,24 +1459,23 @@ def _add_workload_less_equal(array_pool):
 
 
 def _add_workload_logical_and(array_pool):
-    OpArgMngr.add_workload('logical_and', np.array([0, 1, 2, 4, 2], dtype=np.float16), np.array([-2, 5, 1, 4, 3], dtype=np.float16))
+    #OpArgMngr.add_workload('logical_and', np.array([0, 1, 2, 4, 2], dtype=np.float16), np.array([-2, 5, 1, 4, 3], dtype=np.float16))
     OpArgMngr.add_workload('logical_and', np.array([0, 1, 2, 4, 2], dtype=np.float32), np.array([-2, 5, 1, 4, 3], dtype=np.float32))
-    OpArgMngr.add_workload('logical_and', array_pool['4x1'], array_pool['1x2'])
-    OpArgMngr.add_workload('logical_and', np.array([np.nan]), np.array([np.nan]))
-
+    OpArgMngr.add_workload('logical_and', np.array([False, False, True, True], dtype=np.bool),
+                           np.array([False, True, False, True], dtype=np.bool))
 
 def _add_workload_logical_or(array_pool):
-    OpArgMngr.add_workload('logical_or', np.array([0, 1, 2, 4, 2], dtype=np.float16), np.array([-2, 5, 1, 4, 3], dtype=np.float16))
-    OpArgMngr.add_workload('logical_or', np.array([0, 1, 2, 4, 2], dtype=np.float32), np.array([-2, 5, 1, 4, 3], dtype=np.float32))
-    OpArgMngr.add_workload('logical_or', array_pool['4x1'], array_pool['1x2'])
-    OpArgMngr.add_workload('logical_or', np.array([np.nan]), np.array([np.nan]))
+    #OpArgMngr.add_workload('logical_or', np.array([0, 1, 2, 4, 2], dtype=np.float16), np.array([-2, 5, 1, 4, 3], dtype=np.float16))
+    OpArgMngr.add_workload('logical_or', np.array([0, 1, 2, 4, 2], dtype=np.bool), np.array([-2, 5, 1, 4, 3], dtype=np.bool))
+    OpArgMngr.add_workload('logical_or', np.array([False, False, True, True], dtype=np.bool),
+                           np.array([False, True, False, True], dtype=np.bool))
 
 
 def _add_workload_logical_xor(array_pool):
-    OpArgMngr.add_workload('logical_xor', np.array([0, 1, 2, 4, 2], dtype=np.float16), np.array([-2, 5, 1, 4, 3], dtype=np.float16))
+    #OpArgMngr.add_workload('logical_xor', np.array([0, 1, 2, 4, 2], dtype=np.float16), np.array([-2, 5, 1, 4, 3], dtype=np.float16))
     OpArgMngr.add_workload('logical_xor', np.array([0, 1, 2, 4, 2], dtype=np.float32), np.array([-2, 5, 1, 4, 3], dtype=np.float32))
-    OpArgMngr.add_workload('logical_xor', array_pool['4x1'], array_pool['1x2'])
-    OpArgMngr.add_workload('logical_xor', np.array([np.nan]), np.array([np.nan]))
+    OpArgMngr.add_workload('logical_xor', np.array([False, False, True, True], dtype=np.bool),
+                           np.array([False, True, False, True], dtype=np.bool))
 
 
 def _add_workload_where():
