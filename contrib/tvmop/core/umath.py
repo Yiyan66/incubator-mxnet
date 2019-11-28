@@ -25,9 +25,9 @@ _bin_logic_op_map = {
     'less': lambda a, b, *idx: a[idx] < b[idx],
     'greater_equal': lambda a, b, *idx: a[idx] >= b[idx],
     'less_equal': lambda a, b, *idx: a[idx] <= b[idx],
-    'logical_and': lambda a, b, *idx: tvm.all(a[idx]!=0,b[idx]!=0),
-    'logical_or': lambda a, b, *idx: tvm.any(a[idx]!=0,b[idx]!=0),
-    'logical_xor': lambda a, b, *idx: tvm.all(tvm.any(a[idx]!=0,b[idx]!=0),tvm.any(a[idx]==0,b[idx]==0)),
+    'logical_and': lambda a, b, *idx: tvm.all(a[idx] != 0, b[idx] != 0),
+    'logical_or': lambda a, b, *idx: tvm.any(a[idx] != 0, b[idx] != 0),
+    'logical_xor': lambda a, b, *idx: tvm.all(tvm.any(a[idx] != 0, b[idx] != 0), tvm.any(a[idx] == 0, b[idx] == 0)),
 }
 
 

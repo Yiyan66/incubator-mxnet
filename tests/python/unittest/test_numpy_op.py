@@ -1930,8 +1930,7 @@ def test_np_binary_funcs():
 
         np_func = getattr(_np, func)
         mx_func = TestBinary(func)
-        alltypes = alltypes if alltypes else [[_np.float32, _np.float64]]
-        alltypes = alltypes if has_tvm_ops() else [[_np.float16, _np.float32, _np.float64]]
+        alltypes = alltypes if alltypes else [[_np.float16, _np.float32, _np.float64]]
         for dtypes, lgrad, rgrad in zip(alltypes, lgrads, rgrads if rgrads else lgrads):
             for dtype in dtypes:
                 ldtype = rdtype = dtype
@@ -2026,6 +2025,10 @@ def test_np_binary_funcs():
                          [lambda y, x1, x2: x2 / y]),
         'ldexp': (-3, 3, [None], None, [[_np.int32]]),
     }
+    if has_tvm_ops():
+        funcs['logical_and'] = (-100, 100, [None], None, [[_np.float32, _np.float64]])
+        funcs['logical_or'] = (-100, 100, [None], None, [[_np.float32, _np.float64]])
+        funcs['logical_xor'] = (-100, 100, [None], None, [[_np.float32, _np.float64]])
     shape_pairs = [((3, 2), (3, 2)),
                    ((3, 2), (3, 1)),
                    ((3, 1), (3, 0)),
@@ -5265,48 +5268,6 @@ def test_np_einsum():
                     grad.append(cur_grad)
                 for (iop, op) in enumerate(grad[0]):
                     assert_almost_equal(grad[0][iop], grad[1][iop], rtol=rtol, atol=atol)
-
-
-@with_seed()
-@use_np
-def test_np_diagflat():
-    class TestDiagflat(HybridBlock):
-        def __init__(self, k=0):
-            super(TestDiagflat,self).__init__()
-            self._k = k
-        def hybrid_forward(self,F,a):
-            return F.np.diagflat(a, k=self._k)
-    shapes = [(2,),5 , (1,5), (2,2), (2,5), (3,3), (4,3),(4,4,5)] # test_shapes, remember to include zero-dim shape and zero-size shapes
-    dtypes = [np.int8, np.uint8, np.int32, np.int64, np.float16, np.float32, np.float64] # remember to include all meaningful data types for the operator
-    range_k = 6
-    for hybridize,shape,dtype, in itertools.product([False,True],shapes,dtypes):
-        rtol = 1e-2 if dtype == np.float16 else 1e-3
-        atol = 1e-4 if dtype == np.float16 else 1e-5
-
-        for k in range(-range_k,range_k):
-            test_diagflat = TestDiagflat(k)
-            if hybridize:
-                test_diagflat.hybridize()
-
-            x = np.random.uniform(-1.0,1.0, size = shape).astype(dtype)
-            x.attach_grad()
-
-            np_out = _np.diagflat(x.asnumpy(), k)
-            with mx.autograd.record():
-                mx_out = test_diagflat(x)
-
-            assert mx_out.shape == np_out.shape
-            assert_almost_equal(mx_out.asnumpy(),np_out,rtol = rtol, atol = atol)
-
-            mx_out.backward()
-            # Code to get the reference backward value
-            np_backward = np.ones(shape)
-            assert_almost_equal(x.grad.asnumpy(), np_backward, rtol=rtol, atol=atol)
-
-            # Test imperative once again
-            mx_out = np.diagflat(x, k)
-            np_out = _np.diagflat(x.asnumpy(), k)
-            assert_almost_equal(mx_out.asnumpy(), np_out, rtol=rtol, atol=atol) 
 
 
 @with_seed()
