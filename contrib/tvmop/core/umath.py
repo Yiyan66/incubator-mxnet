@@ -90,9 +90,9 @@ _bin_scalar_logic_op_map = {
     'less_scalar': lambda a, b, *idx: a[idx].astype(b.dtype) < b,
     'greater_equal_scalar': lambda a, b, *idx: a[idx].astype(b.dtype) >= b,
     'less_equal_scalar': lambda a, b, *idx: a[idx].astype(b.dtype) <= b,
-    'logical_and_scalar': lambda a, b, *idx: tvm.all(a[idx].astype(b.dtype)==1,b==1),
-    'logical_or_scalar': lambda a, b, *idx: tvm.any(a[idx].astype(b.dtype)==1,b==1),
-    'logical_xor_scalar': lambda a, b, *idx: tvm.all(tvm.any(a[idx].astype(b.dtype)==1,b==1)==1,tvm.any(a[idx].astype(b.dtype)==0,b==0)),
+    'logical_and_scalar': lambda a, b, *idx: tvm.all(a[idx].astype(b.dtype) != 0 , b != 0),
+    'logical_or_scalar': lambda a, b, *idx: tvm.any(a[idx].astype(b.dtype) != 0, b != 0),
+    'logical_xor_scalar': lambda a, b, *idx: tvm.all(tvm.any(a[idx].astype(b.dtype) != 0, b != 0), tvm.any(a[idx].astype(b.dtype) == 0, b == 0)),
 }
 
 
