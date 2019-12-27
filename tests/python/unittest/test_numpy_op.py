@@ -2009,9 +2009,6 @@ def test_np_binary_funcs():
         'lcm': (-100, 100, [None], None, [[_np.int32]]),
         'bitwise_xor': (-100, 100, [None], None, [[_np.int32]]),
         'bitwise_or': (-100, 100, [None], None, [[_np.int32]]),
-        'logical_and': (-100, 100, [None], None),
-        'logical_or': (-100, 100, [None], None),
-        'logical_xor': (-100, 100, [None], None),
         'maximum': (-1, 1, [lambda y, x1, x2: _np.ones(y.shape) * (x1 >= x2)],
                            [lambda y, x1, x2: _np.ones(y.shape) * (x1 < x2)]),
         'minimum': (-1, 1, [lambda y, x1, x2: _np.ones(y.shape) * (x1 <= x2)],
@@ -2025,7 +2022,7 @@ def test_np_binary_funcs():
                          [lambda y, x1, x2: x2 / y]),
         'ldexp': (-3, 3, [None], None, [[_np.int32]]),
     }
-    if has_tvm_ops():
+    if is_op_runnable():
         funcs['logical_and'] = (-100, 100, [None], None, [[_np.float32, _np.float64]])
         funcs['logical_or'] = (-100, 100, [None], None, [[_np.float32, _np.float64]])
         funcs['logical_xor'] = (-100, 100, [None], None, [[_np.float32, _np.float64]])
