@@ -863,7 +863,7 @@ def pareto(a, size=None, ctx=None, out=None):
         return _npi.pareto(a=a, size=size, ctx=ctx, out=out)
 
 
-def power(a, size=None):
+def power(a, size=None, ctx=None, out=None):
     r"""Draw samples in [0, 1] from a power distribution with given parameter a.
 
     Parameters
@@ -897,13 +897,15 @@ def power(a, size=None):
     """
     from ..numpy import _Symbol as np_symbol
     tensor_type_name = np_symbol
+    if ctx is None:
+        ctx = current_context()
     if size == ():
         size = None
     is_tensor = isinstance(a, tensor_type_name)
     if is_tensor:
-        return _npi.powerd(a, a=None, size=size)
+        return _npi.powerd(a, a=None, size=size, ctx=ctx, out=out)
     else:
-        return _npi.powerd(a=a, size=size)
+        return _npi.powerd(a=a, size=size, ctx=ctx, out=out)
 
 
 def multivariate_normal(mean, cov, size=None, check_valid=None, tol=None):

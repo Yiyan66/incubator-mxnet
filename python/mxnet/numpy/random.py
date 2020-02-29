@@ -720,7 +720,7 @@ def pareto(a, size=None, ctx=None, out=None):
     return _mx_nd_np.random.pareto(a, size=size, ctx=ctx, out=out)
 
 
-def power(a, size=None):
+def power(a, size=None, ctx=None, out=None):
     r"""Draw samples in [0, 1] from a power distribution with given parameter a.
 
     Parameters
@@ -752,7 +752,7 @@ def power(a, size=None):
     The power distribution is just the inverse of the Pareto distribution and
     a special case of the Beta distribution.
     """
-    return _mx_nd_np.random.power(a, size)
+    return _mx_nd_np.random.power(a, size=size, ctx=ctx, out=out)
 
 
 def shuffle(x):
